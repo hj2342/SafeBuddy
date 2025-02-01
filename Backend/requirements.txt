@@ -1,0 +1,2 @@
+# things to install before running the backend
+# pip install flask flask-cors pymongo certifi flask-jwt-extended werkzeug
