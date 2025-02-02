@@ -27,13 +27,10 @@ app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-# using mongodb atlas
 client = MongoClient(
     "mongodb+srv://NYUADHackathon:NYUADHackathon@cluster0.x3t1u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     tlsCAFile=certifi.where()
 )
-
-# main database
 db = client.Security
 
 @app.route('/')
@@ -52,17 +49,14 @@ def register():
     if missing_fields:
         return jsonify({"error": f"Missing fields: {', '.join(missing_fields)}"}), 400
 
-    # Check if the username already exists
     if db.users.find_one({"username": data["username"]}):
         return jsonify({"error": "Username already exists"}), 409
 
-    # Validate date_of_birth (expecting format "YYYY-MM-DD")
     try:
         datetime.strptime(data["date_of_birth"], "%Y-%m-%d")
     except ValueError:
         return jsonify({"error": "Incorrect date format for date_of_birth. Use YYYY-MM-DD."}), 400
 
-    # Hash the password
     hashed_password = generate_password_hash(data["password"])
     user = {
         "username": data["username"],
@@ -122,10 +116,6 @@ def delete_user(username):
     else:
         return jsonify({"error": "User not found"}), 404
 
-# -------------------------
-# Danger Endpoints
-# -------------------------
-
 @app.route('/add_danger', methods=['POST'])
 def add_danger():
     """
@@ -137,8 +127,6 @@ def add_danger():
     missing_fields = [field for field in required_fields if field not in data]
     if missing_fields:
         return jsonify({"error": f"Missing fields: {', '.join(missing_fields)}"}), 400
-
-    # Validate date (expecting format "YYYY-MM-DD")
     try:
         datetime.strptime(data["date"], "%Y-%m-%d")
     except ValueError:
@@ -177,24 +165,5 @@ def get_users():
     return jsonify(users), 200
 locations = []
 
-@app.route('/api/location', methods=['POST'])
-def save_location():
-    try:
-        data = request.get_json()  # Get JSON data from frontend
-        latitude = data.get('latitude')
-        longitude = data.get('longitude')
-
-        if latitude is None or longitude is None:
-            return jsonify({"error": "Missing latitude or longitude"}), 400
-
-        # Save to "database" (for now, just append to a list)
-        location_entry = {"latitude": latitude, "longitude": longitude}
-        locations.append(location_entry)
-
-        print(f"Received location: {latitude}, {longitude}")
-
-        return jsonify({"message": "Location saved successfully!", "location": location_entry}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 if __name__ == "__main__":
     app.run(debug=True)
