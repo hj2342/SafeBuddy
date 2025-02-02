@@ -5,13 +5,7 @@ const HomeComponent = () => {
   const menuItems = [
     { id: 1, label: "Emergency Contacts", icon: "📞", className: "emergency" },
     { id: 2, label: "Safe Walk", icon: "🚶‍♂️", className: "safewalk" },
-    { id: 3, label: "Check-In Feature", icon: "✅", className: "checkin" },
-    { id: 4, label: "Incident Report", icon: "📑", className: "incident" },
-    { id: 5, label: "Travel Assistance", icon: "🛫", className: "travel" },
-    { id: 6, label: "Wellness Support", icon: "❤️", className: "wellness" },
-    { id: 7, label: "Neighborhood Watch", icon: "👀", className: "watch" },
-    { id: 8, label: "Safety Guidelines", icon: "⚠️", className: "guidelines" },
-    { id: 9, label: "Personal Safety Tools", icon: "🛠", className: "tools" },
+    { id: 3, label: "Check-In Feature", icon: "✅", className: "checkin" }
   ];
 
   return (
