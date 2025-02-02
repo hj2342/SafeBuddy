@@ -1,0 +1,6 @@
+assemblyai
+together
+torch
+torchaudio
+soundfile
+requests
