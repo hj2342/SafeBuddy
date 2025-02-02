@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserLogin from './components/userlogin';
-import './App.css';
+import Location from './components/Location';
+import Navigation from './components/Navigation';
+import HomeComponent from './components/HomeComponent';
+import Inbox from './components/Inbox';
+import Profile from './components/Profile';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,13 +15,24 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      {isLoggedIn ? (
-        <p>You are logged in!</p>
-      ) : (
-        <UserLogin onLogin={handleLogin} />
-      )}
-    </div>
+    <Router>
+      <div className="app-container">
+        <Location />
+
+        {isLoggedIn ? (
+          <>
+            <Navigation />
+            <Routes>
+              <Route path="/home" element={<HomeComponent />} />
+              <Route path="/inbox" element={<Inbox />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </>
+        ) : (
+          <UserLogin onLogin={handleLogin} />
+        )}
+      </div>
+    </Router>
   );
 }
 
