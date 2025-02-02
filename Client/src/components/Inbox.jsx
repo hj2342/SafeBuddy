@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/Inbox.css";
-
+// import "../App.css";
 const mockInboxData = [
   { id: 1, sender: "SafeBuddy Team", subject: "Welcome to SafeBuddy!", message: "Thank you for signing up! Stay safe.", time: "10:30 AM", read: false },
   { id: 2, sender: "Emergency Alert", subject: "Weather Warning", message: "Heavy rainfall expected. Stay indoors!", time: "9:00 AM", read: false },
@@ -69,3 +69,4 @@ const Inbox = () => {
 };
 
 export default Inbox;
+
