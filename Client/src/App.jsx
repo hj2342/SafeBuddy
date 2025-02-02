@@ -2,7 +2,6 @@ import { useState } from 'react';
 import UserLogin from './components/userlogin';
 import './App.css';
 const API_URL = import.meta.env.VITE_BACKEND_URL;
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
