@@ -25,8 +25,14 @@ from flask_jwt_extended import (
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": ["http://localhost:5173", "http://localhost:3000"]}}, supports_credentials=True)
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "http://localhost:5173"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    return response
 client = MongoClient(
     "mongodb+srv://NYUADHackathon:NYUADHackathon@cluster0.x3t1u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     tlsCAFile=certifi.where()
@@ -164,6 +170,43 @@ def get_users():
             del user['password']
     return jsonify(users), 200
 locations = []
+
+@app.route('/store-location', methods=['POST'])
+def store_location():
+    try:
+        print("\nReceived a request to /store-location")
+        print("Raw Request Data:", request.data)  
+        print("Request Headers:", request.headers)  
+
+        data = request.json
+        print("Parsed JSON Data:", data)
+
+        if not isinstance(data, list) or len(data) != 2:
+            print("Invalid data format received")
+            return jsonify({"error": "Invalid data format"}), 400
+
+        lat_long = data[0]
+        address_info = data[1]
+
+        if "lat" not in lat_long or "long" not in lat_long or "address" not in address_info:
+            print("Missing required fields")
+            return jsonify({"error": "Missing required fields"}), 400
+
+        print(f"Latitude: {lat_long['lat']}, Longitude: {lat_long['long']}")
+        print(f"Address: {address_info['address']}")
+
+        db.user_locations.insert_one({
+            "lat": lat_long["lat"],
+            "long": lat_long["long"],
+            "address": address_info["address"]
+        })
+
+        print("Location successfully stored in MongoDB")
+        return jsonify({"message": "Location stored successfully!"}), 201
+
+    except Exception as e:
+        print("Error:", str(e))
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
