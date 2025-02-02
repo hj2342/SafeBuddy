@@ -1,122 +1,166 @@
-/* Apply a beautiful background gradient with a soft blur effect */
-body, html {
+/* Nokia Retro Style */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Pixelated Nokia-like font */
+
+/* General Reset */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(to bottom, #1E3A8A, #004080, #00274D);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
 }
 
-/* Root container */
-#root {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.1); /* Subtle glassmorphism effect */
-}
-
-/* SafeBuddy Title */
-.header {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 15px;
-  width: 100%;
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-  border-radius: 10px;
-}
-
-/* SafeBuddy Branding */
-.safe {
-  color: #FFD700;
-}
-
-.buddy {
-  color: #FFF;
-}
-
-/* Twitter Feed / Alert Box */
-.info-feed {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 15px;
-  text-align: center;
-  width: 90%;
-  border-radius: 5px;
-  margin: 10px auto;
-  font-size: 16px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* SafeBuddy Buttons - Grid */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  width: 90%;
-  margin-top: 10px;
-}
-
-/* Button Styling */
-.grid-item {
+/* Main Full-Screen Layout */
+body, html {
+  height: 100vh; /* Ensure everything fits on screen */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 15px;
-  border-radius: 10px;
+  background: #6a7786; /* Updated Nokia screen color */
+  color: #000;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* Root Container - Full Fit */
+#root {
+  width: 100%;
+  max-width: 480px; /* Keep Nokia phone screen aspect */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures elements don't overlap */
+  text-align: center;
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.9); /* Dark Nokia screen */
+  border: 3px solid #b7bbbc;
+  padding: 5px;
+}
+
+/* Top Navigation Bar */
+.navbar {
+  width: 100%;
+  font-size: 10px;
+  padding: 3px;
+  background: #000;
+  color: #b7bbbc;
+  border-bottom: 2px solid #b7bbbc;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* SafeBuddy Title */
+.header {
+  background: #000;
+  color: #b7bbbc;
+  padding: 5px;
   text-align: center;
   font-size: 14px;
   font-weight: bold;
-  color: white;
-  min-height: 80px;
-  transition: all 0.3s ease-in-out;
+  border-bottom: 2px solid #b7bbbc;
+}
+
+/* Info Feed */
+.info-feed {
+  background: #000;
+  color: #b7bbbc;
+  padding: 5px;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  border: 2px solid #b7bbbc;
+  font-size: 8px; /* Compact for fitting */
+  text-transform: uppercase;
+}
+
+/* Scrolling Alert Effect */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.info-feed p {
+  font-size: 8px;
+  animation: blink 1.5s infinite;
+}
+
+/* Grid Layout for Buttons */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Buttons - Compact */
+.grid-item {
+  background: #000;
+  color: #b7bbbc;
+  padding: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  border: 2px solid #b7bbbc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 /* Hover Effect */
 .grid-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+  background: #b7bbbc;
+  color: #000;
 }
 
-/* Different Button Colors */
-.emergency { background: #D32F2F; }
-.safewalk { background: #1976D2; }
-.checkin { background: #388E3C; }
-.incident { background: #FBC02D; color: black; }
-.travel { background: #7B1FA2; }
-.wellness { background: #E91E63; }
-.watch { background: #FF9800; }
-.guidelines { background: #673AB7; }
-.tools { background: #455A64; }
+/* Button Active Effect */
+.grid-item:active {
+  background: #333;
+  color: #b7bbbc;
+}
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
+/* Footer - Location */
+.footer {
+  font-size: 8px;
+  padding: 5px;
+  text-align: center;
+  background: #000;
+  color: #b7bbbc;
+  width: 100%;
+  border-top: 2px solid #b7bbbc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fully Responsive */
+@media (max-width: 480px) {
+  #root {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
   }
 
-  .header {
-    font-size: 22px;
-    padding: 10px 0;
+  .grid-container {
+    width: 100%;
   }
 
   .info-feed {
-    font-size: 14px;
+    font-size: 7px;
   }
 
   .grid-item {
-    font-size: 12px;
-    min-height: 70px;
+    font-size: 9px;
+  }
+
+  .footer {
+    font-size: 7px;
   }
 }
