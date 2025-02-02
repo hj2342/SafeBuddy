@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LucideUser, LucideKey, LucideMail } from 'lucide-react';
+import { LucideUser, LucideKey, LucideMail, LucideMapPin, LucideCalendar } from 'lucide-react';
 import './CSS/UserLogin.css';
 
 const API = import.meta.env.VITE_BACKEND_URL;
@@ -9,8 +9,9 @@ const UserLogin = ({ onLoginOrSignup }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    address: '',
+    date_of_birth: '',
     password: '',
-    emergencyEmail: '',
   });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -34,7 +35,7 @@ const UserLogin = ({ onLoginOrSignup }) => {
       });
 
       const data = await response.json();
-      console.log('Login/Signup response:', data);
+      console.log('Response:', data);
 
       if (response.ok) {
         if (isNewUser) {
@@ -42,7 +43,7 @@ const UserLogin = ({ onLoginOrSignup }) => {
           setError('');
           setTimeout(() => {
             setIsNewUser(false);
-            setFormData({ username: '', email: '', password: '', emergencyEmail: '' });
+            setFormData({ username: '', email: '', address: '', date_of_birth: '', password: '' });
             setSuccessMessage('');
           }, 2000);
         } else {
@@ -52,7 +53,7 @@ const UserLogin = ({ onLoginOrSignup }) => {
           onLoginOrSignup(data);
         }
       } else {
-        setError(data.message || (isNewUser ? 'Registration failed' : 'Login failed'));
+        setError(data.error || 'Something went wrong');
         setSuccessMessage('');
       }
     } catch (err) {
@@ -113,18 +114,36 @@ const UserLogin = ({ onLoginOrSignup }) => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="emergencyEmail" className="block font-medium text-gray-700 mb-1">
-                  Emergency Contact Email
+                <label htmlFor="address" className="block font-medium text-gray-700 mb-1">
+                  Emergency Contact
                 </label>
                 <div className="relative">
-                  <LucideMail className="absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-400" />
+                  <LucideMapPin className="absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-400" />
                   <input
-                    type="email"
-                    id="emergencyEmail"
-                    name="emergencyEmail"
+                    type="text"
+                    id="address"
+                    name="address"
                     className="pl-10 pr-4 py-2 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter emergency contact email"
-                    value={formData.emergencyEmail}
+                    placeholder="Enter your address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="date_of_birth" className="block font-medium text-gray-700 mb-1">
+                  Date of Birth
+                </label>
+                <div className="relative">
+                  <LucideCalendar className="absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-400" />
+                  <input
+                    type="date"
+                    id="date_of_birth"
+                    name="date_of_birth"
+                    className="pl-10 pr-4 py-2 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={formData.date_of_birth}
                     onChange={handleInputChange}
                     required
                   />
@@ -166,10 +185,7 @@ const UserLogin = ({ onLoginOrSignup }) => {
           </button>
 
           <div className="text-center mt-4">
-            <p
-              className="text-blue-500 cursor-pointer"
-              onClick={() => setIsNewUser(!isNewUser)}
-            >
+            <p className="text-blue-500 cursor-pointer" onClick={() => setIsNewUser(!isNewUser)}>
               {isNewUser ? 'Already have an account? Login' : 'Don’t have an account? Register'}
             </p>
           </div>
