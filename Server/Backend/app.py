@@ -175,6 +175,26 @@ def get_users():
         if 'password' in user:
             del user['password']
     return jsonify(users), 200
+locations = []
 
+@app.route('/api/location', methods=['POST'])
+def save_location():
+    try:
+        data = request.get_json()  # Get JSON data from frontend
+        latitude = data.get('latitude')
+        longitude = data.get('longitude')
+
+        if latitude is None or longitude is None:
+            return jsonify({"error": "Missing latitude or longitude"}), 400
+
+        # Save to "database" (for now, just append to a list)
+        location_entry = {"latitude": latitude, "longitude": longitude}
+        locations.append(location_entry)
+
+        print(f"Received location: {latitude}, {longitude}")
+
+        return jsonify({"message": "Location saved successfully!", "location": location_entry}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 if __name__ == "__main__":
     app.run(debug=True)
