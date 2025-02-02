@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Home, User, Mail } from 'lucide-react';
 import '../App.css';
-
+import './CSS/Navigation.css';
 function Navigation() {
   const navItems = [
     { id: 'home', icon: Home, label: 'Home', path: '/' },

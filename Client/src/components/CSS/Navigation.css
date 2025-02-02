@@ -1,0 +1,64 @@
+/* Base styles for the navigation bar */
+.navigation-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to right, #1e3c72, #2a5298); /* Smooth gradient background */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  /* Navigation item styles */
+  .nav-item {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.2s ease-in-out, color 0.3s;
+  }
+  
+  /* Icon styles */
+  .nav-item .icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Hover effect for desktop */
+  .nav-item:hover {
+    color: #ffd700;
+    transform: scale(1.1);
+  }
+  
+  .nav-item:hover .icon {
+    transform: scale(1.2);
+  }
+  
+  /* Active state styling */
+  .nav-item.active {
+    color: #ffd700; /* Gold color for active tab */
+  }
+  
+  /* Mobile responsiveness */
+  @media screen and (max-width: 600px) {
+    .navigation-container {
+      padding: 10px 0;
+    }
+  
+    .nav-item {
+      font-size: 12px;
+    }
+  
+    .nav-item .icon {
+      font-size: 20px;
+    }
+  }
+  
