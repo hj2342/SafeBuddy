@@ -1,112 +1,131 @@
-/* Full page styling */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: white;
-  }
-  
-  /* Main container */
-  .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  /* Header Styling */
-  .header {
-    background: #1E3A8A;
-    width: 100%;
-    text-align: center;
-    padding: 15px 0;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .safe {
-    color: white;
-  }
-  
-  .buddy {
-    color: #FFD700;
-  }
-  
-  /* Info Feed Section */
+/* Nokia Retro Style */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Pixelated Nokia-like font */
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Main Container */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #b7bbbc; /* Updated Nokia 3310 screen color */
+  color: #000;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  background: #000;
+  color: #b7bbbc; /* Nokia screen color */
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 3px solid #b7bbbc;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.safe {
+  color: #b7bbbc;
+}
+
+.buddy {
+  color: #b7bbbc;
+}
+
+/* Info Feed */
+.info-feed {
+  background: #000;
+  color: #b7bbbc;
+  padding: 10px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  margin-top: 20px;
+  border: 2px solid #b7bbbc;
+  text-transform: uppercase;
+}
+
+/* Scrolling Alert Effect */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.info-feed h2 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.info-feed p {
+  font-size: 0.8rem;
+  animation: blink 1.5s infinite;
+}
+
+/* Grid Container */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: 90%;
+  max-width: 400px;
+  margin-top: 20px;
+}
+
+/* Grid Items */
+.grid-item {
+  background: #000;
+  color: #b7bbbc;
+  padding: 15px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  border: 2px solid #b7bbbc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Hover Effect */
+.grid-item:hover {
+  background: #b7bbbc;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.grid-item .icon {
+  font-size: 1.5rem;
+}
+
+/* Button Active State */
+.grid-item:active {
+  background: #333;
+  color: #b7bbbc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
   .info-feed {
-    background: #FFD700;
-    color: #1E3A8A;
-    padding: 15px;
-    text-align: center;
-    width: 90%;
-    border-radius: 5px;
-    margin: 10px 0;
+    width: 100%;
   }
-  
-  .info-feed h2 {
-    font-size: 18px;
-    margin: 0;
-  }
-  
-  .info-feed p {
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  /* Grid Container */
+
   .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    width: 90%;
-    margin-top: 10px;
+    width: 100%;
   }
-  
-  /* Grid Item Styling */
-  .grid-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    min-height: 80px;
-  }
-  
-  /* Color Coding for Different Sections */
-  .emergency { background: red; }
-  .safewalk { background: #1E3A8A; }
-  .checkin { background: #004080; }
-  .incident { background: #FFD700; color: black; }
-  .travel { background: #1E3A8A; }
-  .wellness { background: #B22222; }
-  .watch { background: #2E8B57; }
-  .guidelines { background: #FF8C00; }
-  .tools { background: #4B0082; }
-  
-  /* Responsive Design */
-  @media screen and (max-width: 768px) {
-    .grid-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  
-    .header {
-      font-size: 20px;
-      padding: 10px 0;
-    }
-  
-    .info-feed {
-      font-size: 12px;
-    }
-  
-    .grid-item {
-      font-size: 12px;
-      min-height: 70px;
-    }
-  }
-  
+}
